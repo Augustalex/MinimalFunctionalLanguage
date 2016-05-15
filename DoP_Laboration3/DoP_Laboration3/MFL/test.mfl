@@ -1,0 +1,58 @@
+# File: test.mfl
+
+# x is a named expression.
+x = 42
+# y is defined in terms of x.
+y = 2*x
+
+# When evaluating f the value of y above should be used
+# although x is shadowed inside f.
+f = func (x) { x + y }
+# When f(2) is evaluated y should still be 2*42.
+
+zero = 0
+
+# Identity function.
+id = func (x) { x }
+
+# The factorial function.
+fac = func (n) { if n = 0 then 1 else n*fac(n-1) }
+
+# This function cannot be evaluated. It can be defined, however.
+bot = bot
+
+# #moves for solving the tower of Hanoi with n pieces.
+hanoi = func (n) { if n = 0 then 0 else hanoi(n-1) + 1 + hanoi(n-1) }
+
+# The fibonacci numbers.
+fib = func (n) {
+    if n = 0 then 0
+    else if n = 1 then 1
+    else fib(n-1) + fib(n-2)
+}
+
+# Crude way to make a function with two arguments.
+# Test: (add(2))(4) # returns 6
+add = func (x) { func (y) { x + y } }
+
+# This function returns a function that should capture x in its closure.
+start = func (x) { func (y) { x + y } }
+
+firstInc = start(0)
+secondInc = start(8)
+# Test cases:
+# firstInc(3)   # returns 3
+# secondInc(3)  # returns 11
+# firstInc(1)   # returns 1
+# secondInc(2)  # returns 10
+
+# Function dividing x by y and adding z.
+foo = func (x) { func (y) { func (z) { z + x/y } } }
+
+# Function using foo to divide with 0. Note that the result is a function.
+bar = (foo(1))(0)
+# Test: Calling bar(1) should result in division by 0 error.
+
+# Function that ignores its argument.
+ignore = func (x) { 0 }
+# Test: ignore(bot) should return 0.
