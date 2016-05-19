@@ -68,7 +68,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Users\S152557\Source\Repos\dop_laboration3\DoP_Laboration3\DoP_Laboration3\MFL;C:\Users\S152557\Source\Repos\dop_laboration3\DoP_Laboration3\DoP_Laboration3\IntExpInterp;C:\Users\S152557\Source\Repos\dop_laboration3\DoP_Laboration3\DoP_Laboration3\PCLibs2015\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\S152557\Source\Repos\dop_laboration3\DoP_Laboration3\DoP_Laboration3\PCLibs2015\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -110,6 +113,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IntExpInterp\symtab.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="MFL\env.c" />
+    <ClCompile Include="MFL\exp.c" />
+    <ClCompile Include="MFL\print.c" />
+    <ClCompile Include="MFL\value.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IntExpInterp\symtab.h" />
+    <ClInclude Include="MFL\env.h" />
+    <ClInclude Include="MFL\eval.h" />
+    <ClInclude Include="MFL\exp.h" />
+    <ClInclude Include="MFL\parser.h" />
+    <ClInclude Include="MFL\print.h" />
+    <ClInclude Include="MFL\value.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
