@@ -44,17 +44,17 @@
     <ClInclude Include="MFL\value.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="MFL\parser.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MFL\print.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MFL\eval.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="IntExpInterp\symtab.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MFL\parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MFL\print.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MFL\eval.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
