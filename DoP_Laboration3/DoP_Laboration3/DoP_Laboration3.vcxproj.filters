@@ -14,4 +14,47 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MFL\env.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MFL\exp.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MFL\value.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IntExpInterp\symtab.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MFL\print.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MFL\env.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MFL\exp.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MFL\value.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MFL\parser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MFL\print.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MFL\eval.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IntExpInterp\symtab.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
