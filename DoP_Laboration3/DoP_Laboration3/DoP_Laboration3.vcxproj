@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\S152557\Source\Repos\dop_laboration3\DoP_Laboration3\DoP_Laboration3\MFL;C:\Users\S152557\Source\Repos\dop_laboration3\DoP_Laboration3\DoP_Laboration3\IntExpInterp;C:\Users\S152557\Source\Repos\dop_laboration3\DoP_Laboration3\DoP_Laboration3\PCLibs2015\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\S152557\Source\Repos\dop_laboration3\DoP_Laboration3\DoP_Laboration3\PCLibs2015\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\DoP_Laboration3\MFL;$(SolutionDir)\DoP_Laboration3\IntExpInterp;$(SolutionDir)\DoP_Laboration3\PCLibs2015\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\DoP_Laboration3\PCLibs2015\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

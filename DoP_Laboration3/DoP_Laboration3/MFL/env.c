@@ -45,7 +45,7 @@ valueADT GetIdentifierValue(environmentADT env, string name)
     if (val == UNDEFINED) {
         Error("Unknown identifier %s", name);
     }
-	return val;
+	return val;//(aldjwalid
 }
 
 void DefineIdentifier(environmentADT env, string name, expADT exp, environmentADT context)
