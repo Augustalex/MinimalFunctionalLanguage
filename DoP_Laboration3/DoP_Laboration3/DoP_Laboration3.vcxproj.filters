@@ -33,6 +33,12 @@
     <ClCompile Include="MFL\print.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="parser.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IntExpInterp\scanadt.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MFL\env.h">
@@ -50,11 +56,14 @@
     <ClInclude Include="MFL\parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MFL\eval.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="MFL\print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MFL\eval.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="IntExpInterp\scanadt.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

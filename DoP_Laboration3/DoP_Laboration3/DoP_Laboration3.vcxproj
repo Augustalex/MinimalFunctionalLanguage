@@ -113,14 +113,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IntExpInterp\scanadt.c" />
     <ClCompile Include="IntExpInterp\symtab.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="MFL\env.c" />
     <ClCompile Include="MFL\exp.c" />
     <ClCompile Include="MFL\print.c" />
     <ClCompile Include="MFL\value.c" />
+    <ClCompile Include="parser.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IntExpInterp\scanadt.h" />
     <ClInclude Include="IntExpInterp\symtab.h" />
     <ClInclude Include="MFL\env.h" />
     <ClInclude Include="MFL\eval.h" />
