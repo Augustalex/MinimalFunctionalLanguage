@@ -57,12 +57,44 @@ expADT ParseExp(scannerADT scanner)
 {
 	expADT exp;
 
-	exp = ReadE(scanner, 0);
-	while (MoreTokensExist(scanner)) {
-		char token = ReadToken(scanner);
-		expADT exp = NewCompoundExp(token, exp, ReadE(scanner, 0));
-	}
+	string command = CheckCommandToken(scanner);
+	if(StringEqual(command, "\0"))
+		exp = ReadE(scanner, 0);
+	else
+		exp = ReadCommand(scanner, command);
+
 	return (exp);
+}
+
+string CheckCommandToken(scannerADT scanner) {
+	//May exist problems with not reading the entire command or reading too much
+	string token = ReadToken(scanner);
+	if (token[0] != ':') {
+		SaveToken(scanner, token);
+		token = "\0";
+	}
+	else
+		token = Concat(token, ReadToken(scanner));
+
+	return token;
+}
+
+expADT ReadCommand(scanner, command) {
+	expADT exp;
+	if (StringEqual(command, ":define")) {
+		string id = ReadToken(scanner);
+		string op = ReadToken(scanner);
+		expADT val = ReadE(scanner);
+		exp = NewCompoundExp(op[0], NewIdentifierExp(id), val);
+	}
+	else if (StringEqual(command, ":load")) {
+		//Should read file here
+		exp = NewIdentifierExp(":load");
+	}
+	else
+		exp = NewIdentifierExp(command);
+
+	return exp;
 }
 
 /*
@@ -74,21 +106,20 @@ expADT ParseExp(scannerADT scanner)
 * less that or equal to prec.
 */
 
-expADT ReadE(scannerADT scanner, int prec)
+expADT ReadE(scannerADT scanner)
 {
 	expADT exp, rhs;
 	string token;
-	int newPrec;
 
 	exp = ReadT(scanner);
-	while (TRUE) {
-		token = ReadToken(scanner);
-		newPrec = Precedence(token);
-		if (newPrec <= prec) break;
-		rhs = ReadE(scanner, newPrec);
+	
+	token = ReadToken(scanner);
+
+	if (StringEqual(token, "+") || StringEqual(token, "-")) {
+		rhs = ReadE(scanner);
 		exp = NewCompoundExp(token[0], exp, rhs);
 	}
-	SaveToken(scanner, token);
+
 	return (exp);
 }
 
@@ -108,31 +139,118 @@ expADT ReadE(scannerADT scanner, int prec)
 
 expADT ReadT(scannerADT scanner)
 {
+	expADT exp, rhs;
+	string token;
+
+	exp = ReadC(scanner);
+
+	token = ReadToken(scanner);
+	
+	if (StringEqual(token, "*") || StringEqual(token, "/")) {
+		rhs = ReadT(scanner);
+		exp = NewCompoundExp(token[0], exp, rhs);
+	}
+	else
+		SaveToken(scanner, token);
+
+	return exp;
+}
+
+expADT ReadC(scannerADT scanner) {
+	expADT exp;
+	//string token = ReadToken(scanner);
+	exp = ReadF(scanner);
+
+	string token = ReadToken(scanner);
+
+	if (StringEqual(token, "("))
+		exp = NewCallExp(GetCallExp(exp), ReadE(scanner, 0));
+	else
+		SaveToken(scanner, token);
+
+	return exp;		
+}
+
+expADT ReadF(scannerADT scanner) {
+	expADT exp;
+	string token = ReadToken(scanner);
+
+	if (StringEqual(token, "(")) {
+		exp = ReadE(scanner);
+		ReadToken(scanner);
+	}
+	else if (isdigit(token[0]))
+		exp = NewIntegerExp(StringToInteger(token));
+	else if (isalpha(token[0])) {
+		if (StringEqual(token, "func")) {
+			exp = ReadNewFunc(scanner);
+		}
+		else if (StringEqual(token, "if")) {
+			exp = ReadControlStructure(scanner);
+		}
+		else {
+			exp = NewIdentifierExp(token);
+		}
+	}
+	else
+		Error("Illegal term in expression");
+
+	return exp;
+}
+
+expADT ReadNewFunc(scannerADT scanner) {
+	expADT exp;
+
+	ReadToken(scanner); // Read the "("
+
+	string arg = ReadArguments(scanner);
+
+	ReadToken(scanner); // Read the ")"
+	ReadToken(scanner); // Read the "{"
+
+	expADT body = ReadE(scanner);
+
+	ReadToken(scanner); // Read the "{"
+
+	exp = NewFuncExp(arg, body);
+
+	ReadToken(scanner); // Read the "}"
+
+	return exp;
+}
+
+string ReadArguments(scannerADT scanner) {
+	string arg = ReadToken(scanner);
+	return arg;
+}
+
+expADT ReadControlStructure(scannerADT scanner) {
 	expADT exp;
 	string token;
 
 	token = ReadToken(scanner);
-	if (StringEqual(token, "(")) {
-		exp = ReadE(scanner, 0);
-		if (!StringEqual(ReadToken(scanner), ")")) {
-			Error("Unbalanced parentheses");
-		}
-	}
-	else if (isdigit(token[0])) {
-		exp = NewIntegerExp(StringToInteger(token));
-	}
-	else if (isalpha(token[0])) {
-		exp = NewIdentifierExp(token);
-		string token = ReadToken(scanner);
-		if (StringEqual(token, "(")) //Detta nedanför kan resultera i Illegal term!
-			exp = NewCallExp(GetCallExp(exp), ReadE(scanner, 0));
-		else
-			SaveToken(scanner, token);
-	}
-	else {
-		Error("Illegal term in expression");
-	}
-	return (exp);
+	if (StringEqual(token, "if"))
+		token = ReadToken(scanner);
+
+	expADT expPre = ReadE(scanner);
+	string relOp = ReadToken(scanner);
+	expADT expPost = ReadE(scanner);
+
+	string thenKeyWord = ReadToken(scanner);
+	if (!StringEqual(thenKeyWord, "then"))
+		Error("Syntactical error in 'If' statement!");
+
+	expADT expThen = ReadE(scanner);
+
+	string elseKeyWord = ReadToken(scanner);
+	if(!StringEqual(elseKeyWord, "else"))
+		Error("Syntactical error in 'If' statement!");
+
+	expADT expElse = ReadE(scanner);
+
+	exp = NewIfExp(expPre, relOp, expPost, expThen, expElse);
+
+	return exp;
 }
 
 int Precedence(string token)

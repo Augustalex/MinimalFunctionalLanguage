@@ -18,7 +18,7 @@ main()
 		try {
 			printf("=> ");
 			line = GetLine();
-			if (StringEqual(line, "quit")) exit(0);
+			if (StringEqual(line, ":quit")) exit(0);
 			SetScannerString(scanner, line);
 			exp = ParseExp(scanner);
 			valueADT value = EvalExp(exp);

@@ -40,6 +40,19 @@
  *
  */
 
+ /*
+ *		Reading Interpreter Command
+ *
+ *	:define -> <id> = <expression>
+ *
+ *	:load = <file>
+ *
+ *	:help	Display interpreter information.
+ *
+ *	:quit	Quit interpreter program.
+ *
+ */
+
 typedef struct expCDT *expADT;
 
 /*
